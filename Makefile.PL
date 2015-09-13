@@ -37,6 +37,8 @@ requires('WWW::Search::Ebay' => 2.267);
 # We need the bug-fixed version of WWW::Search::Test with test_most():
 test_requires('WWW::Search::Test' => 2.290);
 
+author_tests('xt');
+
 use Env;
 if ($ENV{MTHURN_PERL_DEV})
   {
