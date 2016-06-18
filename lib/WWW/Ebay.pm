@@ -41,7 +41,7 @@ use warnings;
 require 5.005;
 
 our
-$VERSION = '1.003';
+$VERSION = '1.004';
 
 1;
 
