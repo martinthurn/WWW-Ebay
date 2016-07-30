@@ -1,13 +1,16 @@
 
-# $Id: watchlist.t,v 1.3 2006-03-22 01:14:04 Daddy Exp $
-
 use ExtUtils::testlib;
 
-use Test::More no_plan;
+use Test::More;
 
-BEGIN { use_ok('WWW::Ebay::Session') };
+my $sMod;
+BEGIN {
+  $sMod = 'WWW::Ebay::Session';
+  } # end of BEGIN block
 
 use strict;
+
+use_ok($sMod);
 
 SKIP:
   {
@@ -21,8 +24,8 @@ SKIP:
   skip "eBay userid/password not supplied", 11 if (($sUserID   eq '') ||
                                                    ($sPassword eq ''));
   diag("Trying to sign in as $sUserID, with password from env.var EBAY_PASSWORD...");
-  my $oSession = new WWW::Ebay::Session($sUserID, $sPassword);
-  ok(ref($oSession));
+  my $oSession = new $sMod($sUserID, $sPassword);
+  isa_ok($oSession, $sMod);
   my $s = $oSession->signin;
   isnt($s, 'FAILED', 'sign-in');
   diag("Fetching $sUserID\'s watchlist...");
@@ -51,6 +54,8 @@ SKIP:
       } # foreach LISTING
     } # end of SKIP block
   } # end of SKIP block
+
+done_testing();
 
 exit 0;
 
