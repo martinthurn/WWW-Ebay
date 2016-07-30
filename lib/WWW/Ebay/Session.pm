@@ -1,6 +1,4 @@
 
-# $rcs = ' $Id: Session.pm,v 1.64 2014-09-09 03:07:22 Martin Exp $ ' ;
-
 =head1 COPYRIGHT
 
                 Copyright (C) 2002-present Martin Thurn
@@ -63,7 +61,7 @@ use constant DEBUG_WATCH => 0;
 use constant DEBUG_READ_LOCAL_FILES => 0;
 
 our
-$VERSION = do { my @r = (q$Revision: 1.64 $ =~ /\d+/g); sprintf "%d."."%03d" x $#r, @r };
+$VERSION = 1.65;
 
 sub _debug
   {
@@ -421,7 +419,7 @@ sub watchlist_auctions
     close PAGE or warn;
     } # if
   _debug " DDD   start parsing webpage...\n" if DEBUG_WATCH;
-  Date_Init('TZ=US/Pacific');
+  # Date_Init('TZ=US/Pacific');
   # Our return value, a list of WWW::Search::Result objects:
   my @aoWSR;
 
@@ -539,7 +537,7 @@ sub selling_auctions
     close PAGE or warn;
     } # if
   _debug " DDD   start parsing webpage...\n" if DEBUG_SELLING;
-  Date_Init('TZ=US/Pacific');
+  # Date_Init('TZ=US/Pacific');
   # Our return value, a list of WWW::Ebay::Listing objects:
   my @aoWEL;
 
@@ -717,7 +715,7 @@ sub sold_auctions
     close PAGE or warn;
     } # if
   _debug " DDD   start parsing webpage...\n" if DEBUG_SOLD;
-  Date_Init('TZ=US/Pacific');
+  # Date_Init('TZ=US/Pacific');
   # Our return value, a list of WWW::Ebay::Listing objects:
   my $oTree;
   if (ref $self->{_selling_tree})
@@ -891,7 +889,7 @@ sub unsold_auctions
     close PAGE or warn;
     } # if
   _debug " DDD   start parsing webpage...\n" if DEBUG_UNSOLD;
-  Date_Init('TZ=US/Pacific');
+  # Date_Init('TZ=US/Pacific');
   # Our return value, a list of WWW::Ebay::Listing objects:
   my @aoWEL;
 
