@@ -9,7 +9,7 @@ use constant DEBUG_CONTENT => 0;
 use Bit::Vector;
 use Data::Dumper;
 use Date::Manip;
-use Test::More 'no_plan';
+use Test::More;
 use WWW::Search::Test;
 
 BEGIN
@@ -80,7 +80,8 @@ PROMPT
   $iDebug = DEBUG_CONTENT ? 2 : 0;
   $iDump = 0;
   $WWW::Search::Test::sSaveOnError = q{completed_category-failed.html};
-  tm_run_test('normal', '128308', 1, 199, $iDebug, $iDump);
+  # Category 179370 is "Cape Verde stamps"
+  tm_run_test('normal', '179370', 1, 199, $iDebug, $iDump);
   # Now get the results and inspect them:
   my @ao = $WWW::Search::Test::oSearch->results();
   cmp_ok(0, '<', scalar(@ao), 'got some results');
@@ -99,7 +100,6 @@ PROMPT
   } # SKIP
 
 ALL_DONE:
-pass;
+done_testing();
 
 __END__
-
