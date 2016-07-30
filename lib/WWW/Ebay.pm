@@ -1,6 +1,4 @@
 
-# $rcs = ' $Id: Ebay.pm,v 1.37 2014-09-09 03:07:04 Martin Exp $ ' ;
-
 =head1 NAME
 
 WWW::Ebay - Search and manage eBay auctions
