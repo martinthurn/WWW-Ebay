@@ -6,6 +6,7 @@ CVS
 \.cvsignore
 _db
 embedded-
+.git
 gz
 \.html\Z
 junk
