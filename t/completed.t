@@ -5,7 +5,7 @@ use warnings;
 
 # $Id: completed.t,v 1.11 2015-09-13 15:59:32 Martin Exp $
 
-use constant DEBUG_CONTENT => 0;
+use constant DEBUG_CONTENT => 1;
 
 use Bit::Vector;
 use Data::Dumper;
