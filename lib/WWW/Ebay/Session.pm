@@ -52,7 +52,7 @@ use WWW::Search::Ebay 2.181;
 use WWW::SearchResult 2.070;
 
 use constant DEBUG_EMAIL => 0;
-use constant DEBUG_FETCH => 0;
+use constant DEBUG_FETCH => 4;
 use constant DEBUG_FUNC => 0;
 use constant DEBUG_SELLING => 0;
 use constant DEBUG_SOLD => 0;
@@ -133,16 +133,18 @@ sub signin
   print STDERR " DDD signin($sUserID,$sPassword)\n" if DEBUG_FETCH;
   if (! exists($hssPasswords{$sUserID}))
     {
-    # Get the sign-in page and parse it:
-    print STDERR " DDD   fetching ebay sign-in page...\n" if DEBUG_FETCH;
-    # my $sPage = $self->fetch_any_ebay_page('http://cgi.ebay.com/aw-cgi/eBayISAPI.dll?SignIn', 'signin', 'ignore-refresh');
-    my $sPage = $self->fetch_any_ebay_page('http://signin.ebay.com/ws/eBayISAPI.dll?SignIn&ssPageName=h:h:sin:US', 'signin', 'ignore-refresh');
+    my $sUrl = 'http://cgi.ebay.com/aw-cgi/eBayISAPI.dll?SignIn';
     # http://signin.ebay.com/ws/eBayISAPI.dll?SignIn&ssPageName=h:h:sin:US&ru=http%3A//my.ebay.com/ws/ebayISAPI.dll%3FMyeBay%26CurrentPage%3DMyeBayAllSelling
-    # NEW: No encrypted password sent, only cookies.  See if the
-    # sign-in succeeded:
+    $sUrl = 'http://signin.ebay.com/ws/eBayISAPI.dll?SignIn&ssPageName=h:h:sin:US';
+    # Get the sign-in page and parse it:
+    print STDERR " DDD   fetching ebay sign-in page($sUrl)...\n" if DEBUG_FETCH;
+    my $sPage = $self->fetch_any_ebay_page($sUrl, 'signin', 'ignore-refresh');
+    warn " DDD signed-in page contents ===$sPage===\n" if (2 < DEBUG_FETCH);
+    # See if the sign-in succeeded:
     $hssPasswords{$sUserID} = ($sPage =~ m!If you are seeing this page,!i) ? 1 : 'FAILED';
     # OLD: Grab a copy of the encrypted password:
     # $hssPasswords{$sUserID} = ($sPage =~ m!(&|;)pass=(.+?)&!) ? $2 : 'FAILED';
+    # NEW: No encrypted password sent, only cookies; nothing to grab out of the HTML page.
     } # if
   return $hssPasswords{$sUserID};
   } # signin
